@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import axios from 'axios'
-const LOGIN_API = 'https://reqres.in/api/login';
+import React, {useState, useEffect} from 'react';
+import * as AuthService from './AuthService'
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
@@ -10,9 +10,17 @@ const Login = () => {
     });
 
     const [submitted, setSubmitted] = useState(false);
-
     const [error, setError] = useState("");
     const [responseCode, setResponseCode] = useState(null);
+
+    let history = useHistory();
+
+    useEffect(() => {
+        if(AuthService.loggedIn()){
+            history.replace('/');
+        }
+    });
+
     
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -25,10 +33,10 @@ const Login = () => {
         setSubmitted(true);
         if(inputs.email && inputs.password){
             try{
-                const response = await axios.post(LOGIN_API, inputs);
+                const response = await AuthService.login(inputs);
                 setResponseCode(response.status);
                 setError("");
-    
+                history.replace('/');
             }catch (error)
             {
                 setError(error.message);
