@@ -17,8 +17,8 @@ import Home from './Home';
 const App = () => {
   return (
     <BrowserRouter>
-      <Switch>
-        <div className="container d-flex justify-content-center p-3">
+      <div className="container d-flex justify-content-center p-3">
+        <Switch>
           <Route exact path='/login'>
             <Login />
           </Route>
@@ -27,9 +27,9 @@ const App = () => {
               <Home />
             </PrivateRoute>
           </Route>
-          <Redirect to="/"></Redirect>
-        </div>
-      </Switch>
+          <Redirect exact to="/"/>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }

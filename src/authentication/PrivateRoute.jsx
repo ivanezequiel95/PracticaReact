@@ -8,9 +8,8 @@ const PrivateRoute = ({children, ...props}) => {
         <Route {...props}>
             {children}
         </Route>
-        :
-        <Redirect to='/login'>
-        </Redirect>
+        :        
+        <Redirect exact to='/login'/>
     )
 }
 
